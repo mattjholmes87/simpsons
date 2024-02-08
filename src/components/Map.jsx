@@ -5,7 +5,13 @@ class Map extends Component {
   state = {};
   render() {
     return this.props.character.map((item) => {
-      return <Character {...item} onDeleteItem={this.props.onDeleteItem} />;
+      return (
+        <Character
+          key={item.quote}
+          {...item}
+          onDeleteItem={this.props.onDeleteItem}
+        />
+      );
     });
   }
 }

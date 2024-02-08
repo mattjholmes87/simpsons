@@ -6,14 +6,12 @@ class Character extends Component {
     const { character, characterDirection, image, quote, onDeleteItem } =
       this.props;
     return (
-      <>
-        <div key={image}>
-          <h1>{character}</h1>
-          <p>{quote}</p>
-          <img src={image} tag={characterDirection} alt={character} />
-          <button onClick={() => onDeleteItem(quote)}>Delete</button>
-        </div>
-      </>
+      <div key={image}>
+        <h1>{character}</h1>
+        <p>{quote}</p>
+        <img src={image} tag={characterDirection} alt={character} />
+        <button onClick={() => onDeleteItem(quote)}>Delete</button>
+      </div>
     );
   }
 }
