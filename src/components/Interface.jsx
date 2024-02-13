@@ -55,13 +55,23 @@ class Interface extends Component {
       <>
         <Nav getCharacters={this.getCharacters} />
         <div className="interfaceBox">
-          <Input name={"search"} onSearchInput={this.onSearchInput} />
-          <div className="buttonBox">
-            <div className="button on">
-              <IoHeartCircleOutline />
+          <div className="searchCountBox">
+            <div className="searchBox">
+              <Input name={"search"} onSearchInput={this.onSearchInput} />
+            </div>
+            <div className="countBox">
+              <IoHeartCircleOutline
+                className="countTotalIcon"
+                style={{
+                  width: "30px",
+                  height: "30px",
+                  backgroundColor: "transparent",
+                }}
+              />
               {count}
             </div>
           </div>
+
           <Characters
             characters={this.state.characters}
             onDeleteItem={this.onDeleteItem}

@@ -31,11 +31,18 @@ class Character extends Component {
 
     if (characterDirection === "Right") {
       return (
-        <div className={`characterCard ${characterDirection}`} key={image}>
-          <h1>{character}</h1>
+        <div
+          className={`characterCard ${characterDirection} ${liked}`}
+          key={id}
+        >
+          <div className="characterName">
+            <h1>{character}</h1>
+          </div>
 
-          <p>{quote}</p>
-          <img src={image} tag={characterDirection} alt={character} />
+          <div className="characterQuote">"{quote}"</div>
+          <div className="characterImage">
+            <img src={image} tag={characterDirection} alt={character} />
+          </div>
           <div className="buttonBox">
             <div
               className={liked ? "button on" : "button off"}
@@ -48,7 +55,6 @@ class Character extends Component {
                 style={liked ? iconStylesOff : iconStylesOn}
               />
             </div>
-
             <div className="button delete" onClick={() => onDeleteItem(id)}>
               <RiDeleteBin5Line style={iconStylesOn} />
             </div>
@@ -57,10 +63,15 @@ class Character extends Component {
       );
     }
     return (
-      <div className={`characterCard ${characterDirection}`} key={image}>
-        <h1>{character}</h1>
-        <p>{quote}</p>
-        <img src={image} tag={characterDirection} alt={character} />
+      <div className={`characterCard ${characterDirection} ${liked}`} key={id}>
+        <div className="characterName">
+          <h1>{character}</h1>
+        </div>
+
+        <div className="characterQuote">"{quote}"</div>
+        <div className="characterImage">
+          <img src={image} tag={characterDirection} alt={character} />
+        </div>
         <div className="buttonBox">
           <div
             className={liked ? "button on" : "button off"}
@@ -73,7 +84,6 @@ class Character extends Component {
               style={liked ? iconStylesOff : iconStylesOn}
             />
           </div>
-
           <div className="button delete" onClick={() => onDeleteItem(id)}>
             <RiDeleteBin5Line style={iconStylesOn} />
           </div>
