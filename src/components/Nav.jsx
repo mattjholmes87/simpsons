@@ -2,52 +2,60 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class Nav extends Component {
-  state = {};
   render() {
     return (
       <>
         <div className="navBox">
           <div>
-            <Link to="/" style={{ textDecoration: "none", color: "#70d1fe" }}>
+            <Link
+              onClick={() => this.props.getCharacters("")}
+              to="/"
+              className="link"
+            >
               All Characters
             </Link>
           </div>
           <div>
             <Link
+              onClick={() => this.props.getCharacters("simpson")}
               to="/simpson"
-              style={{ textDecoration: "none", color: "#70d1fe" }}
+              className="link"
             >
               Simpson Family
             </Link>
           </div>
           <div>
             <Link
+              onClick={() => this.props.getCharacters("wiggum")}
               to="/wiggum"
-              style={{ textDecoration: "none", color: "#70d1fe" }}
+              className="link"
             >
               Wiggum Family
             </Link>
           </div>
           <div>
             <Link
+              onClick={() => this.props.getCharacters("milhouse")}
               to="/milhouse"
-              style={{ textDecoration: "none", color: "#70d1fe" }}
+              className="link"
             >
               Milhouse Van Houten
             </Link>
           </div>
           <div>
             <Link
+              onClick={() => this.props.getCharacters("nick")}
               to="/nick"
-              style={{ textDecoration: "none", color: "#70d1fe" }}
+              className="link"
             >
               Dr Nick
             </Link>
           </div>
           <div>
             <Link
+              onClick={() => this.props.getCharacters("duffman")}
               to="/duffman"
-              style={{ textDecoration: "none", color: "#70d1fe" }}
+              className="link"
             >
               Duffman
             </Link>

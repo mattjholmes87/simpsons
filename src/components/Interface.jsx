@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import Character from "./Character";
 import Input from "./Input";
 import axios from "axios";
+import Characters from "./Characters";
+import Nav from "./Nav";
+import Loading from "./Loading";
+import { IoHeartCircleOutline } from "react-icons/io5";
 
 class Interface extends Component {
-  state = {};
+  state = { count: 0 };
 
   async componentDidMount() {
     this.getCharacters("");
@@ -14,41 +17,60 @@ class Interface extends Component {
     const { data } = await axios.get(
       `https://thesimpsonsquoteapi.glitch.me/quotes?count=20&character=${searchTerm}`
     );
-
-    this.setState({ character: data });
+    data.forEach((item, index) => {
+      item.id = Math.random() + "" + index;
+    });
+    this.setState({ characters: data });
   };
 
-  onDeleteItem = (quote) => {
-    const character = [...this.state.character];
-    const index = character.findIndex((item) => item.quote === quote);
-    character.splice(index, 1);
-    this.setState({ character });
+  onDeleteItem = (id) => {
+    const characters = [...this.state.characters];
+    const index = characters.findIndex((item) => item.id === id);
+    characters.splice(index, 1);
+    this.setState({ characters });
   };
 
   onSearchInput = (e) => {
     this.getCharacters(e.target.value);
   };
 
+  toggle = (id) => {
+    const characters = [...this.state.characters];
+    const index = characters.findIndex((item) => item.id === id);
+
+    characters[index].liked = !characters[index].liked;
+    this.setState({ characters });
+  };
+
   render() {
     console.log(this.state);
-    return <Input name={"search"} onSearchInput={this.onSearchInput} />;
-    // if (!this.state.character) {
-    //   return <p>Loading ...</p>;
-    // }
-    return;
-
-    // this.state.character.map((item) => {
-    //   return (
-    //     <>
-
-    //       <Character
-    //         key={item.quote}
-    //         {...item}
-    //         onDeleteItem={this.onDeleteItem}
-    //       />
-    //     </>
-    //   );
-    // });
+    if (!this.state.characters) {
+      return <Loading />;
+    }
+    let count = 0;
+    this.state.characters.forEach((item) => {
+      if (item.liked) count++;
+    });
+    return (
+      <>
+        <Nav getCharacters={this.getCharacters} />
+        <div className="interfaceBox">
+          <Input name={"search"} onSearchInput={this.onSearchInput} />
+          <div className="buttonBox">
+            <div className="button on">
+              <IoHeartCircleOutline />
+              {count}
+            </div>
+          </div>
+          <Characters
+            characters={this.state.characters}
+            onDeleteItem={this.onDeleteItem}
+            toggle={this.toggle}
+            liked={this.liked}
+          />
+        </div>
+      </>
+    );
   }
 }
 

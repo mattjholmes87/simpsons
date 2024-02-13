@@ -6,17 +6,23 @@ class Input extends Component {
     const { name, type, onSearchInput } = this.props;
 
     return (
-      <div>
-        <form>
-          <label htmlFor={name}>Character Search:</label>
-          <input
-            onInput={onSearchInput}
-            type={type ? type : "text"}
-            id={name}
-            name={name}
-          />
-          <p></p>
-        </form>
+      <div className="formBox">
+        <div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <label htmlFor={name}>Character Search:</label>
+            <input
+              onInput={onSearchInput}
+              type={type ? type : "text"}
+              id={name}
+              name={name}
+            />
+            <p></p>
+          </form>
+        </div>
       </div>
     );
   }
