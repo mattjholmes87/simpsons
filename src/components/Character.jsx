@@ -29,39 +29,6 @@ class Character extends Component {
       display: "none",
     };
 
-    if (characterDirection === "Right") {
-      return (
-        <div
-          className={`characterCard ${characterDirection} ${liked}`}
-          key={id}
-        >
-          <div className="characterName">
-            <h1>{character}</h1>
-          </div>
-
-          <div className="characterQuote">"{quote}"</div>
-          <div className="characterImage">
-            <img src={image} tag={characterDirection} alt={character} />
-          </div>
-          <div className="buttonBox">
-            <div
-              className={liked ? "button on" : "button off"}
-              onClick={() => toggle(id)}
-            >
-              <IoHeartCircleOutline
-                style={liked ? iconStylesOn : iconStylesOff}
-              />
-              <IoHeartDislikeCircleOutline
-                style={liked ? iconStylesOff : iconStylesOn}
-              />
-            </div>
-            <div className="button delete" onClick={() => onDeleteItem(id)}>
-              <RiDeleteBin5Line style={iconStylesOn} />
-            </div>
-          </div>
-        </div>
-      );
-    }
     return (
       <div className={`characterCard ${characterDirection} ${liked}`} key={id}>
         <div className="characterName">
