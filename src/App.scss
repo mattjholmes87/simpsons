@@ -213,10 +213,10 @@ body {
     color: white;
   }
   .button.on {
-    color: #fed90f;
+    color: #ff0909;
   }
   .button.delete:hover {
-    color: #fed90f;
+    color: #000000f1;
   }
 }
 
@@ -260,5 +260,9 @@ body {
       margin-right: 10px;
       align-self: center;
     }
+  }
+
+  .countBox.on {
+    color: #ff0909;
   }
 }

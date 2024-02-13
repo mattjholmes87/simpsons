@@ -210,10 +210,10 @@ body {
   color: white;
 }
 .buttonBox .button.on {
-  color: #fed90f;
+  color: #ff0909;
 }
 .buttonBox .button.delete:hover {
-  color: #fed90f;
+  color: rgba(0, 0, 0, 0.9450980392);
 }
 
 .searchCountBox {
@@ -256,4 +256,7 @@ body {
 .searchCountBox .countBox .countTotalIcon {
   margin-right: 10px;
   align-self: center;
+}
+.searchCountBox .countBox.on {
+  color: #ff0909;
 }/*# sourceMappingURL=App.css.map */

@@ -78,7 +78,7 @@ class Interface extends Component {
             <div className="searchBox">
               <Input name={"search"} onSearchInput={this.onSearchInput} />
             </div>
-            <div className="countBox">
+            <div className={`countBox ${count > 0 ? "on" : "off"}`}>
               <IoHeartCircleOutline
                 className="countTotalIcon"
                 style={{
