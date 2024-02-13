@@ -6,7 +6,7 @@ import Error from "./Error";
 class Characters extends Component {
   state = {};
   render() {
-    const { characters, onDeleteItem, toggle, liked } = this.props;
+    const { characters, onDeleteItem, toggle } = this.props;
 
     if (!characters) {
       return <Loading />;

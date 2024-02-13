@@ -24,6 +24,7 @@ class Input extends Component {
                 border: "solid 1px #70d1fe",
                 borderRadius: "5px",
                 padding: "2px",
+                color: "#70d1fe",
               }}
             />
             <p></p>

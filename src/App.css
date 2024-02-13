@@ -241,4 +241,12 @@ body {
 .searchCountBox .countBox .countTotalIcon {
   margin-right: 10px;
   align-self: center;
+}
+
+.filterBox {
+  padding-right: 50px;
+  height: 40px;
+  font-family: "Rock Salt", cursive;
+  color: #70d1fe;
+  text-shadow: -2px 2px #ffffff;
 }/*# sourceMappingURL=App.css.map */
