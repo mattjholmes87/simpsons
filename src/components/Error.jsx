@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 
 class Error extends Component {
-  state = {};
   render() {
     return (
       <>
