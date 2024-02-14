@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Input from "./Input";
 import axios from "axios";
 import Characters from "./Characters";
@@ -8,99 +8,101 @@ import { IoHeartCircleOutline } from "react-icons/io5";
 import Filter from "./Filter";
 import { sort } from "../sort";
 
-class Interface extends Component {
-  state = { count: 0 };
+const Interface = () => {
+  const [state, setState] = useState({});
 
-  async componentDidMount() {
-    this.getCharacters("");
-  }
-
-  getCharacters = async (searchTerm) => {
-    const { data } = await axios.get(
-      `https://thesimpsonsquoteapi.glitch.me/quotes?count=20&character=${searchTerm}`
-    );
-    data.forEach((item, index) => {
-      item.id = Math.random() + "" + index;
-    });
-    this.setState({ characters: data });
+  const onSearchInput = (e) => {
+    getCharacters(e.target.value);
   };
 
-  onDeleteItem = (id) => {
-    const characters = [...this.state.characters];
+  const getCharacters = useCallback(
+    async (searchTerm) => {
+      const { data } = await axios.get(
+        `https://thesimpsonsquoteapi.glitch.me/quotes?count=20&character=${searchTerm}`
+      );
+      data.forEach((item, index) => {
+        item.id = Math.random() + "" + index;
+      });
+      setState({ ...state, characters: data });
+    },
+    // eslint-disable-next-line
+    []
+  );
+
+  useEffect(() => {
+    getCharacters("");
+  }, [getCharacters]);
+
+  const onDeleteItem = (id) => {
+    const characters = [...state.characters];
     const index = characters.findIndex((item) => item.id === id);
     characters.splice(index, 1);
-    this.setState({ characters });
+    setState({ ...state, characters });
   };
 
-  onSearchInput = (e) => {
-    this.getCharacters(e.target.value);
-  };
-
-  toggle = (id) => {
-    const characters = [...this.state.characters];
+  const toggle = (id) => {
+    console.log(id);
+    const characters = [...state.characters];
     const index = characters.findIndex((item) => item.id === id);
-
     characters[index].liked = !characters[index].liked;
-    this.setState({ characters });
+    setState({ ...state, characters });
   };
 
-  onSortSelect = (e) => {
-    this.setState({ sortSelection: e.target.value });
+  const onSortSelect = (e) => {
+    setState({ ...state, sortSelection: e.target.value });
   };
 
-  render() {
-    console.log(this.state);
-    if (!this.state.characters) {
-      return <Loading />;
-    }
-    let count = 0;
-    this.state.characters.forEach((item) => {
-      if (item.liked) count++;
-    });
-
-    // Sort Characters
-    let sortedCharacters = [...this.state.characters];
-    if (!this.state.sortSelection) {
-      sortedCharacters = sort(sortedCharacters, "A-Z");
-    }
-    if (this.state.sortSelection) {
-      sortedCharacters = sort(sortedCharacters, this.state.sortSelection);
-    }
-
-    return (
-      <>
-        <Nav getCharacters={this.getCharacters} />
-        <div className="interfaceBox">
-          <div className="searchCountBox">
-            <div className="filterBox">
-              <Filter onSortSelect={this.onSortSelect} />
-            </div>
-            <div className="searchBox">
-              <Input name={"search"} onSearchInput={this.onSearchInput} />
-            </div>
-            <div className={`countBox ${count > 0 ? "on" : "off"}`}>
-              <IoHeartCircleOutline
-                className="countTotalIcon"
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "transparent",
-                }}
-              />
-              {count}
-            </div>
-          </div>
-
-          <Characters
-            characters={sortedCharacters}
-            onDeleteItem={this.onDeleteItem}
-            toggle={this.toggle}
-            liked={this.liked}
-          />
-        </div>
-      </>
-    );
+  console.log(state);
+  if (!state.characters) {
+    return <Loading />;
   }
-}
+  let count = 0;
+  state.characters.forEach((item) => {
+    if (item.liked) count++;
+  });
+
+  // Sort Characters
+  let sortedCharacters = [...state.characters];
+  if (!state.sortSelection) {
+    sortedCharacters = sort(sortedCharacters, "A-Z");
+  }
+  if (state.sortSelection) {
+    sortedCharacters = sort(sortedCharacters, state.sortSelection);
+  }
+
+  return (
+    <>
+      <Nav getCharacters={getCharacters} />
+      <div className="interfaceBox">
+        <div className="searchCountBox">
+          <div className="filterBox">
+            <Filter onSortSelect={onSortSelect} />
+          </div>
+          <div className="searchBox">
+            <Input name={"search"} onSearchInput={onSearchInput} />
+          </div>
+          <div className={`countBox ${count > 0 ? "on" : "off"}`}>
+            <IoHeartCircleOutline
+              className="countTotalIcon"
+              style={{
+                width: "30px",
+                height: "30px",
+                backgroundColor: "transparent",
+              }}
+            />
+            {count}
+          </div>
+        </div>
+
+        <Characters
+          characters={sortedCharacters}
+          onDeleteItem={onDeleteItem}
+          toggle={toggle}
+          liked={state.liked}
+        />
+      </div>
+    </>
+  );
+};
 
 export default Interface;

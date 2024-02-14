@@ -1,27 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 import Character from "./Character";
 import Loading from "./Loading";
 import Error from "./Error";
 
-class Characters extends Component {
-  state = {};
-  render() {
-    const { characters, onDeleteItem, toggle } = this.props;
+const Characters = (props) => {
+  const { characters, onDeleteItem, toggle } = props;
 
-    if (!characters) {
-      return <Loading />;
-    }
-
-    if (!characters.length) return <Error />;
-
-    return characters.map((item) => {
-      return (
-        <div key={item.id}>
-          <Character {...item} onDeleteItem={onDeleteItem} toggle={toggle} />
-        </div>
-      );
-    });
+  if (!characters) {
+    return <Loading />;
   }
-}
+
+  if (!characters.length) return <Error />;
+
+  return characters.map((item) => {
+    return (
+      <div key={item.id}>
+        <Character {...item} onDeleteItem={onDeleteItem} toggle={toggle} />
+      </div>
+    );
+  });
+};
 
 export default Characters;
